@@ -8,7 +8,7 @@ public class NewVeteranStudentList extends NewStudentList {
     }
 
     public NewVeteranStudentList(int studentCount) {
-        super();
+        // super();
         this.students = new Vector<Student>(studentCount);
     }
 }
