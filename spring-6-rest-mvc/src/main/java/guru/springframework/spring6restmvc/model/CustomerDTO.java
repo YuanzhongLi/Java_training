@@ -6,12 +6,15 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Builder
+/**
+ * Created by jt, Spring Framework Guru.
+ */
 @Data
+@Builder
 public class CustomerDTO {
     private UUID id;
     private String name;
     private Integer version;
     private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
+    private LocalDateTime updateDate;
 }

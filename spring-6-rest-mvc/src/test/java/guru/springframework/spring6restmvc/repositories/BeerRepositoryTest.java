@@ -14,14 +14,16 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DataJpaTest
 class BeerRepositoryTest {
+
     @Autowired
     BeerRepository beerRepository;
 
     @Test
     void testSaveBeerNameTooLong() {
+
         assertThrows(ConstraintViolationException.class, () -> {
             Beer savedBeer = beerRepository.save(Beer.builder()
-                    .beerName("My Beer 01233456780123345678012334567801233456780123345678012334567801233456780123345678012334567801233456780123345678")
+                    .beerName("My Beer 0123345678901233456789012334567890123345678901233456789012334567890123345678901233456789")
                     .beerStyle(BeerStyle.PALE_ALE)
                     .upc("234234234234")
                     .price(new BigDecimal("11.99"))
@@ -34,10 +36,10 @@ class BeerRepositoryTest {
     @Test
     void testSaveBeer() {
         Beer savedBeer = beerRepository.save(Beer.builder()
-                        .beerName("My Beer")
-                        .beerStyle(BeerStyle.PALE_ALE)
-                        .upc("234234234234")
-                        .price(new BigDecimal("11.99"))
+                .beerName("My Beer")
+                .beerStyle(BeerStyle.PALE_ALE)
+                .upc("234234234234")
+                .price(new BigDecimal("11.99"))
                 .build());
 
         beerRepository.flush();

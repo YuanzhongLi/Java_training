@@ -9,15 +9,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 class CustomerRepositoryTest {
+
     @Autowired
     CustomerRepository customerRepository;
 
     @Test
     void testSaveCustomer() {
         Customer customer = customerRepository.save(Customer.builder()
-                        .name("New Name")
+                .name("New Name")
                 .build());
 
         assertThat(customer.getId()).isNotNull();
+
     }
 }

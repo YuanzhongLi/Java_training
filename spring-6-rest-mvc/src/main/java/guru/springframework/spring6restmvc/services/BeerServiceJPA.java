@@ -31,7 +31,8 @@ public class BeerServiceJPA implements BeerService {
 
     @Override
     public Optional<BeerDTO> getBeerById(UUID id) {
-        return Optional.ofNullable(beerMapper.beerToBeerDto(beerRepository.findById(id).orElse(null)));
+        return Optional.ofNullable(beerMapper.beerToBeerDto(beerRepository.findById(id)
+                .orElse(null)));
     }
 
     @Override
@@ -40,7 +41,7 @@ public class BeerServiceJPA implements BeerService {
     }
 
     @Override
-    public Optional<BeerDTO> updateBeerId(UUID beerId, BeerDTO beer) {
+    public Optional<BeerDTO> updateBeerById(UUID beerId, BeerDTO beer) {
         AtomicReference<Optional<BeerDTO>> atomicReference = new AtomicReference<>();
 
         beerRepository.findById(beerId).ifPresentOrElse(foundBeer -> {
@@ -48,7 +49,9 @@ public class BeerServiceJPA implements BeerService {
             foundBeer.setBeerStyle(beer.getBeerStyle());
             foundBeer.setUpc(beer.getUpc());
             foundBeer.setPrice(beer.getPrice());
-            atomicReference.set(Optional.of(beerMapper.beerToBeerDto(beerRepository.save(foundBeer))));
+            foundBeer.setQuantityOnHand(beer.getQuantityOnHand());
+            atomicReference.set(Optional.of(beerMapper
+                    .beerToBeerDto(beerRepository.save(foundBeer))));
         }, () -> {
             atomicReference.set(Optional.empty());
         });
@@ -59,10 +62,9 @@ public class BeerServiceJPA implements BeerService {
     @Override
     public Boolean deleteById(UUID beerId) {
         if (beerRepository.existsById(beerId)) {
-            beerRepository.deleteById((beerId));
+            beerRepository.deleteById(beerId);
             return true;
         }
-
         return false;
     }
 

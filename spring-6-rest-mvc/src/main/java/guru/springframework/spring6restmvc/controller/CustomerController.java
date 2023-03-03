@@ -16,10 +16,12 @@ import java.util.UUID;
 public class CustomerController {
     public static final String CUSTOMER_PATH = "/api/v1/customer";
     public static final String CUSTOMER_PATH_ID = CUSTOMER_PATH + "/{customerId}";
-    public final CustomerService customerService;
+
+    private final CustomerService customerService;
 
     @PatchMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity pathCustomerById(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDTO customer) {
+    public ResponseEntity patchCustomerById(@PathVariable("customerId") UUID customerId,
+                                            @RequestBody CustomerDTO customer){
 
         customerService.patchCustomerById(customerId, customer);
 
@@ -27,7 +29,7 @@ public class CustomerController {
     }
 
     @DeleteMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity deleteCustomerById(@PathVariable("customerId") UUID customerId) {
+    public ResponseEntity deleteCustomerById(@PathVariable("customerId") UUID customerId){
 
         if (!customerService.deleteCustomerById(customerId)){
             throw new NotFoundException();
@@ -37,7 +39,9 @@ public class CustomerController {
     }
 
     @PutMapping(CUSTOMER_PATH_ID)
-    public ResponseEntity updateCustomerById(@PathVariable("customerId") UUID customerId, @RequestBody CustomerDTO customer) {
+    public ResponseEntity updateCustomerByID(@PathVariable("customerId") UUID customerId,
+                                             @RequestBody CustomerDTO customer){
+
         if (customerService.updateCustomerById(customerId, customer).isEmpty()){
             throw new NotFoundException();
         }
@@ -46,7 +50,7 @@ public class CustomerController {
     }
 
     @PostMapping(CUSTOMER_PATH)
-    public ResponseEntity handlePost(@RequestBody CustomerDTO customer) {
+    public ResponseEntity handlePost(@RequestBody CustomerDTO customer){
         CustomerDTO savedCustomer = customerService.saveNewCustomer(customer);
 
         HttpHeaders headers = new HttpHeaders();
@@ -56,12 +60,13 @@ public class CustomerController {
     }
 
     @GetMapping(CUSTOMER_PATH)
-    public List<CustomerDTO> listAllCustomers() {
+    public List<CustomerDTO> listAllCustomers(){
         return customerService.getAllCustomers();
     }
 
     @GetMapping(value = CUSTOMER_PATH_ID)
-    public CustomerDTO getCustomerById(@PathVariable("customerId") UUID id) {
+    public CustomerDTO getCustomerById(@PathVariable("customerId") UUID id){
         return customerService.getCustomerById(id).orElseThrow(NotFoundException::new);
     }
+
 }

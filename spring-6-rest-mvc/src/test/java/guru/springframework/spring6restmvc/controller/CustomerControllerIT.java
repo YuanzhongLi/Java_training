@@ -16,10 +16,11 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 class CustomerControllerIT {
+
     @Autowired
     CustomerRepository customerRepository;
 
@@ -51,7 +52,7 @@ class CustomerControllerIT {
     @Test
     void testUpdateNotFound() {
         assertThrows(NotFoundException.class, () -> {
-            customerController.updateCustomerById(UUID.randomUUID(), CustomerDTO.builder().build());
+            customerController.updateCustomerByID(UUID.randomUUID(), CustomerDTO.builder().build());
         });
     }
 
@@ -66,7 +67,7 @@ class CustomerControllerIT {
         final String customerName = "UPDATED";
         customerDTO.setName(customerName);
 
-        ResponseEntity responseEntity = customerController.updateCustomerById(customer.getId(), customerDTO);
+        ResponseEntity responseEntity = customerController.updateCustomerByID(customer.getId(), customerDTO);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(204));
 
         Customer updatedCustomer = customerRepository.findById(customer.getId()).get();
@@ -92,7 +93,6 @@ class CustomerControllerIT {
         Customer customer = customerRepository.findById(savedUUID).get();
         assertThat(customer).isNotNull();
     }
-
 
     @Rollback
     @Transactional
