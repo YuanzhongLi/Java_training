@@ -4,10 +4,7 @@ import guru.springframework.spring6reactive.model.BeerDTO;
 import guru.springframework.spring6reactive.services.BeerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -19,6 +16,14 @@ public class BeerController {
     public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
 
     private final BeerService beerService;
+
+    @PutMapping(BEER_PATH_ID)
+    Mono<ResponseEntity<Void>> updateExistingBeer(@PathVariable("beerId") Integer beerId, @RequestBody BeerDTO beerDTO) {
+        beerService.updateBeer(beerId, beerDTO).subscribe();
+
+        return beerService.updateBeer(beerId, beerDTO)
+                .map(savedDto -> ResponseEntity.ok().build());
+    }
 
     @PostMapping(BEER_PATH)
     Mono<ResponseEntity<Void>> createNewBeer(BeerDTO beerDTO) {
