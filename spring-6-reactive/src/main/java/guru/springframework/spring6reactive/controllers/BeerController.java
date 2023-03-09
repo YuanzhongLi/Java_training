@@ -20,7 +20,8 @@ public class BeerController {
 
     @DeleteMapping(BEER_PATH_ID)
     Mono<ResponseEntity<Void>> deleteById(@PathVariable("beerId") Integer beerId) {
-        return beerService.deleteById(beerId).map(response -> ResponseEntity.noContent().build());
+        return beerService.deleteById(beerId)
+                .thenReturn(ResponseEntity.noContent().build());
     }
 
     @PatchMapping(BEER_PATH_ID)
@@ -35,7 +36,7 @@ public class BeerController {
         beerService.updateBeer(beerId, beerDTO).subscribe();
 
         return beerService.updateBeer(beerId, beerDTO)
-                .map(savedDto -> ResponseEntity.ok().build());
+                .map(savedDto -> ResponseEntity.noContent().build());
     }
 
     @PostMapping(BEER_PATH)
