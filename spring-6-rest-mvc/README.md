@@ -1,3 +1,10 @@
+### mysql commnad
+- mysql server 起動:  
+```$ mysql.server start```
+- mysql server 終了:  
+```$ mysql.server stop```
+
+
 
 ### データベース
 
@@ -14,3 +21,5 @@ O/R Mapping
 
 #### 暗黙的なコミット
 - [参考doc1](https://gihyo.jp/dev/serial/01/mysql-road-construction-news/0134)
+
+
