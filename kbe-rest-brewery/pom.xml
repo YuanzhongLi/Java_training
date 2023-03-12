@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.5</version>
+        <version>3.0.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -13,21 +13,12 @@
     <artifactId>kbe-rest-brewery</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>kbe-rest-brewery</name>
-
     <description>SFG REST Brewery</description>
 
-    <developers>
-        <developer>
-            <name>John Thompson</name>
-            <organization>Spring Framework Guru</organization>
-            <url>https://springframework.guru</url>
-        </developer>
-    </developers>
-
     <properties>
-        <java.version>11</java.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <org.lombok.version>1.18.18</org.lombok.version>
+        <java.version>17</java.version>
+        <mapstruct.version>1.5.2.Final</mapstruct.version>
+<!--        <org.lombok.version>1.18.18</org.lombok.version>-->
     </properties>
 
     <dependencies>
@@ -60,7 +51,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>${org.lombok.version}</version>
             <optional>true</optional>
         </dependency>
         <dependency>
@@ -92,8 +82,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
+                <version>3.10.1</version>
                 <configuration>
+                    <source>17</source>
+                    <target>17</target>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>
@@ -103,7 +95,7 @@
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>${org.lombok.version}</version>
+                            <version>${lombok.version}</version>
                         </path>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -118,8 +110,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <scm>
-        <url>https://github.com/sfg-beer-works/sfg-restful-brewery</url>
-    </scm>
 </project>

@@ -1,12 +1,17 @@
-# SFG Beer Works - RESTful Brewery Service
-
-This project is to support learning about Restful APIs. 
-
-You can access the API documentation [here](https://sfg-beer-works.github.io/brewery-api/#tag/Beer-Service) 
-
-## Connect with Spring Framework Guru
-* Spring Framework Guru [Blog](https://springframework.guru/)
-* Subscribe to Spring Framework Guru on [YouTube](https://www.youtube.com/channel/UCrXb8NaMPQCQkT8yMP_hSkw)
-* Like Spring Framework Guru on [Facebook](https://www.facebook.com/springframeworkguru/)
-* Follow Spring Framework Guru on [Twitter](https://twitter.com/spring_guru)
-* Connect with John Thompson on [LinkedIn](http://www.linkedin.com/in/springguru)
+### Docker command
+- docker build:
+  ```$docker build -f ./src/main/dockerBase/Dockerfile -t kbe-rest .```
+- check docker container:
+```docker ps -a```
+- remove docker container:
+```docker rm <container id>```
+- check docker image
+```docker images```
+- remove docker image
+```docker rmi <container id>```
+- run container(background)
+```docker run -p 8080:8080 -d kbe-rest```
+- run container
+  ```docker run -p 8080:8080 kbe-rest```
+- end container
+  ```docker kill <container id>```
